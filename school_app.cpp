@@ -6,6 +6,7 @@
 #include "include/json.hpp"
 #include <sstream>
 
+
 class Device {
 public:
     std::string ip;
