@@ -12,6 +12,8 @@ add_library(school_core
         src/Logger.cpp
         src/Menu.cpp
         src/NetworkAddress.cpp
+        src/Vec3.cpp
+        src/distance_wire.cpp
         src/commands/ActiveCommand.cpp
         src/commands/ExitCommand.cpp
         src/commands/MoveCommand.cpp
@@ -28,11 +30,20 @@ target_link_libraries(school_app PRIVATE school_core)
 
 add_executable(school_server
         src/server_main.cpp
-        src/Vec3.cpp
+        src/net_tcp.cpp
 )
 target_link_libraries(school_server PRIVATE school_core)
 if (WIN32)
     target_link_libraries(school_server PRIVATE ws2_32)
+endif ()
+
+add_executable(school_client
+        src/client_main.cpp
+        src/net_tcp.cpp
+)
+target_link_libraries(school_client PRIVATE school_core)
+if (WIN32)
+    target_link_libraries(school_client PRIVATE ws2_32)
 endif ()
 
 option(SCHOOL_TASK_BUILD_TESTS "Build unit tests" ON)
