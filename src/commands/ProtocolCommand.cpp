@@ -15,7 +15,7 @@ bool ProtocolCommand::execute(Device& device, std::stringstream& args) {
     args >> variation;
     variation = lower2(variation);
 
-    if (variation == "json" || variation == "binary") {
+    if (variation == "json" or variation == "binary") {
         device.prot = variation;
         Logger::instance().info("Command: protocol " + variation);
         return true;

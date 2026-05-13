@@ -15,12 +15,12 @@ bool ActiveCommand::execute(Device& device, std::stringstream& args) {
     args >> value;
     value = lower(value);
 
-    if (value == "1" || value == "true") {
+    if (value == "1" or value == "true") {
         device.active = true;
         Logger::instance().info("Command: active true");
         return true;
     }
-    if (value == "0" || value == "false") {
+    if (value == "0" or value == "false") {
         device.active = false;
         Logger::instance().info("Command: active false");
         return true;

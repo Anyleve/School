@@ -10,14 +10,14 @@ static int to_int_checked(const std::string& s) {
     const char* begin = s.data();
     const char* end = s.data() + s.size();
     auto [ptr, ec] = std::from_chars(begin, end, value);
-    if (ec != std::errc() || ptr != end) {
+    if (ec != std::errc() or ptr != end) {
         throw std::invalid_argument("not an integer: '" + s + "'");
     }
     return value;
 }
 
 NetworkAddress::NetworkAddress(int64_t ip_address, int port) {
-    if (ip_address < 0 || ip_address > 0xFFFFFFFFLL) {
+    if (ip_address < 0 or ip_address > 0xFFFFFFFFLL) {
         throw std::out_of_range("ip_address out of range (expected 0..2^32-1)");
     }
     ip_ = static_cast<uint32_t>(ip_address);
@@ -69,7 +69,7 @@ std::optional<uint32_t> NetworkAddress::try_parse_ipv4(const std::string& ip) {
     std::istringstream iss(ip);
     std::string token;
     while (std::getline(iss, token, '.')) {
-        if (count >= 4 || token.empty()) {
+        if (count >= 4 or token.empty()) {
             return std::nullopt;
         }
         int v = 0;
@@ -78,7 +78,7 @@ std::optional<uint32_t> NetworkAddress::try_parse_ipv4(const std::string& ip) {
         } catch (...) {
             return std::nullopt;
         }
-        if (v < 0 || v > 255) {
+        if (v < 0 or v > 255) {
             return std::nullopt;
         }
         octets[count++] = v;
@@ -109,11 +109,11 @@ std::optional<int> NetworkAddress::try_parse_port(const std::string& port) {
 
 void NetworkAddress::validate(uint32_t ip, int port) {
     const uint32_t last_octet = ip & 0xFFu;
-    if (last_octet < 1 || last_octet >= 254) {
+    if (last_octet < 1 or last_octet >= 254) {
         throw std::invalid_argument("IPv4 last octet invariant violated (expected 1..253)");
     }
     
-    if (port < 1 || port > 65535) {
+    if (port < 1 or port > 65535) {
         throw std::out_of_range("port out of range (expected 1..65535)");
     }
 }

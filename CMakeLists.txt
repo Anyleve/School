@@ -26,6 +26,15 @@ target_include_directories(school_core PUBLIC
 add_executable(school_app src/main.cpp)
 target_link_libraries(school_app PRIVATE school_core)
 
+add_executable(school_server
+        src/server_main.cpp
+        src/Vec3.cpp
+)
+target_link_libraries(school_server PRIVATE school_core)
+if (WIN32)
+    target_link_libraries(school_server PRIVATE ws2_32)
+endif ()
+
 option(SCHOOL_TASK_BUILD_TESTS "Build unit tests" ON)
 if (SCHOOL_TASK_BUILD_TESTS)
     enable_testing()

@@ -13,7 +13,7 @@ static void apply_json(Device& device, const nlohmann::json& data) {
     if (data.contains("port")) device.port = data["port"];
     if (data.contains("imei")) device.imei = data["imei"];
     if (data.contains("imsi")) device.imsi = data["imsi"];
-    if (data.contains("location") && data["location"].is_array() && data["location"].size() >= 3) {
+    if (data.contains("location") and data["location"].is_array() and data["location"].size() >= 3) {
         device.x = data["location"][0];
         device.y = data["location"][1];
         device.z = data["location"][2];
@@ -51,7 +51,7 @@ int main(int argc, char* argv[]) {
     Device device;
     apply_json(device, data);
 
-    if (!device.ip.empty() && device.port != 0) {
+    if (!device.ip.empty() and device.port != 0) {
         try {
             NetworkAddress addr(device.ip, std::to_string(device.port));
             Logger::instance().info("Loaded address: " + addr.full_address());
@@ -62,19 +62,19 @@ int main(int argc, char* argv[]) {
 
     for (int i = 2; i < argc; i++) {
         std::string arg = argv[i];
-        if ((arg == "-a" || arg == "--ip") && i + 1 < argc) {
+        if ((arg == "-a" or arg == "--ip") and i + 1 < argc) {
             device.ip = argv[++i];
-        } else if ((arg == "-p" || arg == "--port") && i + 1 < argc) {
+        } else if ((arg == "-p" or arg == "--port") and i + 1 < argc) {
             device.port = std::stoi(argv[++i]);
-        } else if ((arg == "-e" || arg == "--imei") && i + 1 < argc) {
+        } else if ((arg == "-e" or arg == "--imei") and i + 1 < argc) {
             device.imei = argv[++i];
-        } else if ((arg == "-i" || arg == "--imsi") && i + 1 < argc) {
+        } else if ((arg == "-i" or arg == "--imsi") and i + 1 < argc) {
             device.imsi = argv[++i];
-        } else if ((arg == "-k" || arg == "--config") && i + 1 < argc) {
+        } else if ((arg == "-k" or arg == "--config") and i + 1 < argc) {
             device.config = argv[++i];
-        } else if ((arg == "-n" || arg == "--nodes") && i + 1 < argc) {
+        } else if ((arg == "-n" or arg == "--nodes") and i + 1 < argc) {
             device.nodes = argv[++i];
-        } else if ((arg == "-l" || arg == "--loc") && i + 3 < argc) {
+        } else if ((arg == "-l" or arg == "--loc") and i + 3 < argc) {
             device.x = std::stod(argv[++i]);
             device.y = std::stod(argv[++i]);
             device.z = std::stod(argv[++i]);
@@ -84,7 +84,7 @@ int main(int argc, char* argv[]) {
         }
     }
 
-    if (!device.ip.empty() && device.port != 0) {
+    if (!device.ip.empty() and device.port != 0) {
         try {
             NetworkAddress addr(device.ip, std::to_string(device.port));
             Logger::instance().info("Effective address: " + addr.full_address());

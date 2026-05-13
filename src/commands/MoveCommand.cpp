@@ -8,7 +8,7 @@ bool MoveCommand::execute(Device& device, std::stringstream& args) {
     int count = 0;
     double coords[3] = {device.x, device.y, device.z};
 
-    while (count < 3 && (args >> val)) {
+    while (count < 3 and (args >> val)) {
         coords[count] = val;
         count++;
     }
